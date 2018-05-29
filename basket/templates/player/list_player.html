@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
+    <title>Listar jugadores!</title>
+  </head>
+  <body>
+    <div class="container">
+        
+            <p>Hola {{request.user.first_name}} /<a href="{% url 'auth_logout' %}">Salir</a></p>
+        <div class="row">
+            <h1>Jugadores!</h1>
+            <div class="col-md-12">
+                
+
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">First</th>
+                      <th scope="col">Last</th>
+                      <th scope="col">Position</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for player in object_list %}
+                    <tr>
+                      <th scope="row">{{player.id}}</th>
+                      <td><a href="{% url 'player_detail' player.pk %}">{{player.name}}</a></td>
+                      <td>@{{player.nickname}}</td>
+                      <td>{{player.position}}</td>
+                    </tr>
+                    {% endfor %} 
+
+                  </tbody>
+                </table>
+
+
+            </div>
+        </div>
+        <div class="row">
+            {% if object_list.has_next or object_list.has_previous %}
+                <nav aria-label="Page navigation example">
+                  <ul class="pagination">
+                     {% if object_list.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page={{ object_list.previous_page_number }}">Previous</a></li>
+                    {% endif %}
+                    
+                    {% for page in object_list.paginator.page_range %}
+                    <li class="page-item {% if object_list.number == page %}active{% endif %}"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
+                    {% endfor %}
+
+                     {% if object_list.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ object_list.next_page_number }}">Next</a></li>
+                    {% endif %}
+                  </ul>
+                </nav>
+
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+  </body>
+</html>

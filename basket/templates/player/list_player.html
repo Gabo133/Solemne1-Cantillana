@@ -32,9 +32,24 @@
                     {% for player in object_list %}
                     <tr>
                       <th scope="row">{{player.id}}</th>
-                      <td><a href="{% url 'player_detail' player.pk %}">{{player.name}}</a></td>
+                      <td>{{player.name}}</td>
                       <td>@{{player.nickname}}</td>
                       <td>{{player.position}}</td>
+                      <td>
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Action
+                          </button>
+                          <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                            <a href="{% url 'Player_edit' player.pk %}">
+                              <button class="dropdown-item" type="button">Editar</button>
+                            </a>
+                            <a href="{% url 'Delete' player.pk %}">
+                              <button class="dropdown-item delete" type="button">Eliminar</button>
+                            </a>
+                          </div>
+                        </div>
+                      </td>
                     </tr>
                     {% endfor %} 
 

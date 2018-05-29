@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Team, Player
+from .models import Team, Player, Coach
 from django.utils.safestring import mark_safe
 
 
@@ -15,3 +15,7 @@ class PlayerAdmin(admin.ModelAdmin):
     def thumb(self, obj):
         return mark_safe(u'<img src="%s" style="width:10px;height:10px;"/>' \
             % (obj.picture.url))
+
+@admin.register(Coach)
+class CoachAdmin(admin.ModelAdmin):
+    list_display = ('name', 'full_rut', 'age','email','nickname',)

@@ -45,3 +45,6 @@ class Coach(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def full_rut(self):
+        return '{}-{}' . format(self.rut, self.dv)

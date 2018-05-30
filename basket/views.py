@@ -83,6 +83,23 @@ def add_team(request):
     template_name = 'player/add.html'
     return render(request, template_name, data)
 
+def add_match(request):
+    data = {}
+    if request.method == "POST":
+        data['form'] = MatchForm(request.POST, request.FILES)
+
+        if data['form'].is_valid():
+            # aca el formulario valido
+            data['form'].save()
+
+            return redirect('player_list')
+
+    else:
+        data['form'] = MatchForm()
+        data['Tittle'] = "Add Match"
+    template_name = 'player/add.html'
+    return render(request, template_name, data)
+
 def edit_player(request, player_id):
     data = {}
     if request.POST:

@@ -19,6 +19,12 @@ class TeamForm(ModelForm):
     class Meta:
         model = Team
         fields = ['name', 'logo', 'description']
+
+class MatchForm(ModelForm):
+    
+    class Meta:
+        model = Match
+        fields = ['name', 'date',]
         
 class EditPlayer(ModelForm):
     

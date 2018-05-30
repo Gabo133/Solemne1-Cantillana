@@ -6,3 +6,4 @@ POSITION_PLAYER_CHOICES = (
     ('AP', 'Ala-pivot'),
     ('PI', 'Pivot'),
 )
+

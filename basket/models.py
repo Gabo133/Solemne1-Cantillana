@@ -1,6 +1,6 @@
 from django.db import models
 from basket.defines import POSITION_PLAYER_CHOICES
-
+from django.contrib.auth.models import User
 
 class Team(models.Model):
     name = models.CharField(max_length=120)
@@ -35,6 +35,7 @@ class Player(models.Model):
 
 
 class Coach(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=120)
     age = models.PositiveIntegerField()
     email = models.EmailField()
@@ -48,3 +49,13 @@ class Coach(models.Model):
     
     def full_rut(self):
         return '{}-{}' . format(self.rut, self.dv)
+
+
+class Match(models.Model):
+    name = models.CharField(max_length=120)
+    date = models.DateTimeField()
+    players = models.ManyToManyField(Player)
+    class Meta():
+        unique_together(Match,Player)
+    def __str__(self):
+        return self.name

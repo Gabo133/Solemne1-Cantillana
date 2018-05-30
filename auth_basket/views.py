@@ -36,6 +36,7 @@ def auth_login(request):
                 request,
                 'Usuario o contraseña incorrectos!'
             )
+
     return render(request, template_name, data)
 
 

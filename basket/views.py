@@ -11,6 +11,11 @@ from django.http import HttpResponseRedirect
 @login_required(login_url='/auth/login')
 def index(request):
     data = {}
+    try:
+        Coach.objects.get(user=request.user)
+    except Exception as e:
+        raise e
+
 
     # SELECT * FROM player
     object_list = Player.objects.all().order_by('-id')
@@ -80,6 +85,23 @@ def add_team(request):
         data['Tittle'] = "Add Team"
 
 
+    template_name = 'player/add.html'
+    return render(request, template_name, data)
+
+def add_match(request):
+    data = {}
+    if request.method == "POST":
+        data['form'] = MatchForm(request.POST, request.FILES)
+
+        if data['form'].is_valid():
+            # aca el formulario valido
+            data['form'].save()
+
+            return redirect('player_list')
+
+    else:
+        data['form'] = MatchForm()
+        data['Tittle'] = "Add Match"
     template_name = 'player/add.html'
     return render(request, template_name, data)
 

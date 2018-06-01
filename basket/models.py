@@ -40,6 +40,7 @@ class Coach(models.Model):
     age = models.PositiveIntegerField()
     email = models.EmailField()
     nickname = models.CharField(max_length=120)
+    team = models.OneToOneField(Team, on_delete=models.CASCADE)
 
     rut = models.CharField(max_length=8)
     dv = models.PositiveIntegerField()
@@ -55,7 +56,5 @@ class Match(models.Model):
     name = models.CharField(max_length=120)
     date = models.DateTimeField()
     players = models.ManyToManyField(Player)
-    class Meta():
-        unique_together(Match,Player)
     def __str__(self):
         return self.name

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Team, Player, Coach
+from .models import Team, Player, Coach, Match
 from django.utils.safestring import mark_safe
 
 
@@ -19,3 +19,7 @@ class PlayerAdmin(admin.ModelAdmin):
 @admin.register(Coach)
 class CoachAdmin(admin.ModelAdmin):
     list_display = ('name', 'full_rut', 'age','email','nickname',)
+
+@admin.register(Match)
+class MatchAdmin(admin.ModelAdmin):
+    list_display = ('name','date')

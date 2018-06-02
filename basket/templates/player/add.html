@@ -44,7 +44,8 @@
                 <form action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
 
                 {% bootstrap_form form %}
-
+                <input type="hidden" name="user" id="user">
+                
                 <input type="submit" value="Enviar" class="btn btn-primary btn-lg btn-block">
                 </form>
                 <br>

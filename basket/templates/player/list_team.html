@@ -8,58 +8,37 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 
-    <title>Listar jugadores!</title>
+    <title>list team!</title>
   </head>
   <body>
     <div class="container">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            
-        <a class="navbar-brand" href="#">Basket App</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <!-- <li class="nav-item active">
-              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li> -->
-          </ul>
-          <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" id="searchTerm" type="search" placeholder="Search" onkeyup="doSearch()" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-          </form>
-        </div>
-
-      </div>
-    </nav>
         
             <p>Hola {{request.user}} /<a href="{% url 'auth_logout' %}">Salir</a> /<a href="{% url 'index' %}">Volver</a></p>
-            <div class="row">
+            
+        <div class="row">
             <div class="col-md-2">
-              <h1>Players!</h1>
+              <h1>Teams!</h1>
             </div>
             <div class="col-md-2 offset-md-8">
-              <a href="{% url 'add_player' %}">
+              <a href="{% url 'add_team' %}">
                 
-              <button type="button" class="btn btn-outline-success btn-lg">Add Player</button>
+              <button type="button" class="btn btn-outline-success btn-lg">Add team</button>
 
               </a>
             </div>
           
         </div>
         <div class="row">
+            
             <div class="col-md-12">
                 
 
-                <table class="table" id="datos">
+                <table class="table">
                   <thead>
                     <tr>
                       <th scope="col">#</th>
-                      <th scope="col">First</th>
-                      <th scope="col">Last</th>
-                      <th scope="col">Position</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Action</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -67,8 +46,6 @@
                     <tr>
                       <th scope="row">{{player.id}}</th>
                       <td>{{player.name}}</td>
-                      <td>@{{player.nickname}}</td>
-                      <td>{{player.position}}</td>
                       <td>
                         <div class="dropdown">
                             <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -121,41 +98,4 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
   </body>
-  <script language="javascript">
-    function doSearch()
-    {
-      var tableReg = document.getElementById('datos');
-      var searchText = document.getElementById('searchTerm').value.toLowerCase();
-      var cellsOfRow="";
-      var found=false;
-      var compareWith="";
- 
-      // Recorremos todas las filas con contenido de la tabla
-      for (var i = 1; i < tableReg.rows.length; i++)
-      {
-        cellsOfRow = tableReg.rows[i].getElementsByTagName('td');
-        found = false;
-        // Recorremos todas las celdas
-        for (var j = 0; j < cellsOfRow.length && !found; j++)
-        {
-          compareWith = cellsOfRow[j].innerHTML.toLowerCase();
-          // Buscamos el texto en el contenido de la celda
-          if (searchText.length == 0 || (compareWith.indexOf(searchText) > -1))
-          {
-            found = true;
-          }
-        }
-        if(found)
-        {
-          tableReg.rows[i].style.display = '';
-        } else {
-          // si no ha encontrado ninguna coincidencia, esconde la
-          // fila de la tabla
-          tableReg.rows[i].style.display = 'none';
-        }
-      }
-    }
-  </script>
 </html>
-
-

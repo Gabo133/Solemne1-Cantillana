@@ -26,10 +26,12 @@
               <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
             </li> -->
           </ul>
-          <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" id="searchTerm" type="search" placeholder="Search" onkeyup="doSearch()" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-          </form>
+         
+            <a href="{% url 'list_player' %}">
+
+            <button  class="btn btn-outline-success">Log in</button>
+            </a>
+          
         </div>
 
       </div>
@@ -37,61 +39,87 @@
         
             <p>Hola {{request.user}} /<a href="{% url 'auth_logout' %}">Salir</a> /<a href="{% url 'index' %}">Volver</a></p>
             <div class="row">
-            <div class="col-md-2">
-              <h1>Players!</h1>
+            <div class="col-md-2 offset-md-5">
+              <h1>Matches!</h1>
             </div>
-            <div class="col-md-2 offset-md-8">
-              <a href="{% url 'add_player' %}">
-                
-              <button type="button" class="btn btn-outline-success btn-lg">Add Player</button>
-
-              </a>
-            </div>
+            
           
         </div>
         <div class="row">
             <div class="col-md-12">
                 
+                
+                  <button class="btn btn-primary btn-block"  type="button" id="mostrar"  aria-haspopup="true">
+                    Real vs Madrid
+                  </button>
+                  <div class="row" id="tab1" style="display:none;">
+                    
+                      <div class="col-6">
+                      
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">First</th>
+                            <th scope="col">Last</th>
+                            <th scope="col">Position</th>
+                          </tr>
+                        </thead>
+                      <tbody>
+                        {% for player in object_list %}
+                        <tr>
+                          <th scope="row">{{player.players.id}}</th>
+                          <td>{{player.players.name}}</td>
+                          <td>@{{player.players.nickname}}</td>
+                          <td>{{player.players.position}}</td>
+                        </tr>
+                        {% endfor %} 
 
-                <table class="table" id="datos">
-                  <thead>
-                    <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">First</th>
-                      <th scope="col">Last</th>
-                      <th scope="col">Position</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {% for player in object_list %}
-                    <tr>
-                      <th scope="row">{{player.id}}</th>
-                      <td>{{player.name}}</td>
-                      <td>@{{player.nickname}}</td>
-                      <td>{{player.position}}</td>
-                      <td>
-                        <div class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Action
-                          </button>
-                          <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                            <a href="{% url 'Player_edit' player.pk %}">
-                              <button class="dropdown-item" type="button">Editar</button>
-                            </a>
-                            <a href="{% url 'Delete' player.pk %}">
-                              <button class="dropdown-item delete" type="button">Eliminar</button>
-                            </a>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
-                    {% endfor %} 
+                      </tbody>
+                    </table>
 
-                  </tbody>
-                </table>
+                    
+                    </div>
+                    <div class="col-6" >
+                      
+                      <table class="table" >
+                        <thead>
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">First</th>
+                            <th scope="col">Last</th>
+                            <th scope="col">Position</th>
+                          </tr>
+                        </thead>
+                      <tbody>
+                        {% for player in object_list %}
+                        <tr>
+                          <th scope="row">{{player.players.id}}</th>
+                          <td>{{player.players.name}}</td>
+                          <td>@{{player.players.nickname}}</td>
+                          <td>{{player.players.position}}</td>
+                        </tr>
+                        {% endfor %} 
+
+                      </tbody>
+                    </table>
+
+                    
+                    </div>
+                  </div>         
 
 
+
+                  <button class="btn btn-primary btn-block"  type="button" id="mostrar"  aria-haspopup="true">
+                    Real vs Madrid
+                  </button>
+                  
+            
             </div>
+        </div>
+        <div class="row">
+
+          
         </div>
         <div class="row">
             {% if object_list.has_next or object_list.has_previous %}
@@ -122,39 +150,20 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
   </body>
   <script language="javascript">
-    function doSearch()
-    {
-      var tableReg = document.getElementById('datos');
-      var searchText = document.getElementById('searchTerm').value.toLowerCase();
-      var cellsOfRow="";
-      var found=false;
-      var compareWith="";
- 
-      // Recorremos todas las filas con contenido de la tabla
-      for (var i = 1; i < tableReg.rows.length; i++)
-      {
-        cellsOfRow = tableReg.rows[i].getElementsByTagName('td');
-        found = false;
-        // Recorremos todas las celdas
-        for (var j = 0; j < cellsOfRow.length && !found; j++)
-        {
-          compareWith = cellsOfRow[j].innerHTML.toLowerCase();
-          // Buscamos el texto en el contenido de la celda
-          if (searchText.length == 0 || (compareWith.indexOf(searchText) > -1))
-          {
-            found = true;
-          }
+   
+    $(document).ready(function(){
+      
+      $("#mostrar").on( "click", function() {
+        if($("#tab1").is(':visible')){
+        
+          $('#tab1').hide(); //muestro mediante id  
+        }else{
+          
+          $('#tab1').show();
         }
-        if(found)
-        {
-          tableReg.rows[i].style.display = '';
-        } else {
-          // si no ha encontrado ninguna coincidencia, esconde la
-          // fila de la tabla
-          tableReg.rows[i].style.display = 'none';
-        }
-      }
-    }
+
+        });
+    });
   </script>
 </html>
 

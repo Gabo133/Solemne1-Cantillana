@@ -11,7 +11,6 @@ class Team(models.Model):
     def __str__(self):
         return self.name
 
-
 class Player(models.Model):
     name = models.CharField(max_length=120)
     nickname = models.CharField(max_length=120)
@@ -29,6 +28,14 @@ class Player(models.Model):
 
     def full_rut(self):
         return '{}-{}' . format(self.rut, self.dv)
+
+    def __str__(self):
+        return self.name
+
+class Match(models.Model):
+    name = models.CharField(max_length=120)
+    date = models.DateTimeField()
+    players = models.ManyToManyField(Player)
 
     def __str__(self):
         return self.name

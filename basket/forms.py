@@ -26,7 +26,8 @@ class PlayerForm(ModelForm):
     
     class Meta:
         model = Player
-        fields = ['rut', 'dv', 'name', 'nickname', 'birthday', 'age', 'email', 'height', 'weight', 'picture', 'position', 'team']
+
+        fields = ['rut', 'dv', 'name','birthday', 'nickname', 'age', 'email', 'height', 'weight', 'picture', 'position', 'team']
 
 class CoachForm(ModelForm):
     

@@ -124,11 +124,9 @@ def list_match(request):
     data = {}
     
     matchs = Match.objects.all()
-    # players = matchs.Player_set.all()
-    for i in matchs:
-        print(i.players.all)
+     
 
-    data["objects_list"] = matchs
+    data["object_list"] = matchs
     template_name = 'player/list_match.html'
     return render(request, template_name, data)
 
@@ -145,7 +143,7 @@ def add_player(request):
             # aca el formulario valido
             data['form'].save()
 
-            return redirect('player_list')
+            return redirect('index')
 
     else:
         data['form'] = PlayerForm()
@@ -188,10 +186,11 @@ def add_user(request):
     data = {}
     if request.method == "POST":
         data['form'] = CoachUserForm(request.POST, request.FILES)
-
+        
         if (data['form'].is_valid()):
             # aca el formulario valido
-            data['form'].save()
+            User.objects.create_user(username=request.POST["username"],
+                            password= request.POST["password1"])
             return redirect('add_user')
     else:
         data['form'] = UserCreationForm()
@@ -202,7 +201,7 @@ def add_user(request):
 
 @login_required(login_url='/auth/login')
 def add_team(request):
-    if(decorador(request.user,True)):
+    if(decorador(request.user,False)):
         return redirect('index')
     data = {}
     if request.method == "POST":
@@ -212,7 +211,7 @@ def add_team(request):
             # aca el formulario valido
             data['form'].save()
 
-            return redirect('list_team', args=request.POST["username"])
+            return redirect('list_team')
 
     else:
         data['form'] = TeamForm()

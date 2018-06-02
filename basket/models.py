@@ -32,13 +32,6 @@ class Player(models.Model):
     def __str__(self):
         return self.name
 
-class Match(models.Model):
-    name = models.CharField(max_length=120)
-    date = models.DateTimeField()
-    players = models.ManyToManyField(Player)
-
-    def __str__(self):
-        return self.name
 
 
 class Coach(models.Model):

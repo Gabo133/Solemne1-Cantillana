@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 
-    <title>Listar jugadores!</title>
+    <title>List match!</title>
   </head>
   <body>
     <div class="container">
@@ -39,39 +39,52 @@
         
             <p>Hola {{request.user}} /<a href="{% url 'auth_logout' %}">Salir</a> /<a href="{% url 'index' %}">Volver</a></p>
             <div class="row">
-            <div class="col-md-2 offset-md-5">
-              <h1>Matches!</h1>
-            </div>
-            
-          
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                
-                
-                  <button class="btn btn-primary btn-block"  type="button" id="mostrar"  aria-haspopup="true">
-                    Real vs Madrid
-                  </button>
-                  <div class="row" id="tab1" style="display:none;">
+              <div class="col-md-2 offset-md-5">
+                <h1>Matches!</h1>
+              </div>
+              
                     
-                      <div class="col-6">
+                      <div class="col-12">
                       
                       <table class="table">
                         <thead>
                           <tr>
                             <th scope="col">#</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Position</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Players</th>
                           </tr>
                         </thead>
                       <tbody>
-                        {% for player in object_list %}
+                        {% for match in object_list %}
                         <tr>
-                          <th scope="row">{{player.players.id}}</th>
-                          <td>{{player.players.name}}</td>
-                          <td>@{{player.players.nickname}}</td>
-                          <td>{{player.players.position}}</td>
+                          <th scope="row">{{match.id}}</th>
+                          <td>{{match.name}}</td>
+                          <td>@{{match.date}}</td>
+                          <td>
+                              <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Position</th>
+                                  </tr>
+                                </thead>
+                              <tbody>
+                                {% for player in match.players.all %}
+                                <tr>
+                                  <th scope="row">{{player.id}}</th>
+                                  <td>{{player.name}}</td>
+                                  <td>@{{player.email}}</td>
+                                  <td>@{{player.position}}</td>
+                                  
+                                </tr>
+                                {% endfor %} 
+
+                              </tbody>
+                            </table>
+                          </td>
                         </tr>
                         {% endfor %} 
 
@@ -80,47 +93,8 @@
 
                     
                     </div>
-                    <div class="col-6" >
-                      
-                      <table class="table" >
-                        <thead>
-                          <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Position</th>
-                          </tr>
-                        </thead>
-                      <tbody>
-                        {% for player in object_list %}
-                        <tr>
-                          <th scope="row">{{player.players.id}}</th>
-                          <td>{{player.players.name}}</td>
-                          <td>@{{player.players.nickname}}</td>
-                          <td>{{player.players.position}}</td>
-                        </tr>
-                        {% endfor %} 
-
-                      </tbody>
-                    </table>
-
-                    
-                    </div>
-                  </div>         
-
-
-
-                  <button class="btn btn-primary btn-block"  type="button" id="mostrar"  aria-haspopup="true">
-                    Real vs Madrid
-                  </button>
-                  
-            
-            </div>
-        </div>
-        <div class="row">
-
-          
-        </div>
+      
+        
         <div class="row">
             {% if object_list.has_next or object_list.has_previous %}
                 <nav aria-label="Page navigation example">
